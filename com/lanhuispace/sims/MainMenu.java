@@ -49,7 +49,7 @@ public class MainMenu extends JMenuBar
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("新建  被点击");
 			}
-        });
+		});
 		
 		this.add(fileMenu);
 		this.add(editMenu);
