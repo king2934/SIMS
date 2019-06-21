@@ -2,7 +2,7 @@ package com.lanhuispace.sims;
 
 import javax.swing.JFrame;
 import java.awt.Color;
-
+import javax.swing.border.*;
 
 public class WinMain
 {
@@ -31,9 +31,13 @@ public class WinMain
 		mJFrame.getContentPane().setBackground(new Color(200,200,200,1));
 		
 		MainMenu mm = new MainMenu();
+		mm.getComponent().setBackground(Color.white);//背景色
+		mm.setBorderPainted(false);//边框线
+		Border border = mm.getBorder();
+		Border margin = new EmptyBorder(1,0,1,0);
+		mm.setBorder(new CompoundBorder(border,margin));
 		
-		mJFrame.setJMenuBar(mm);
-		
+		mJFrame.setJMenuBar(mm);		
 		mJFrame.setVisible(true);
 	}
 }
