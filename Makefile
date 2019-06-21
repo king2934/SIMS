@@ -2,11 +2,14 @@
 #CC = D:\mingw_w64\mingw64\bin\gcc.exe
 #
 CC = javac 
-RM = rm -rf 
+RM = rm -rf
 
-all:
+#gcc -mwindows main.c -o sims.exe
+exe:
 	gcc -mwindows main.c -o sims.exe
-	$(CC)  -encoding utf8 Main.java
-	
+all:
+	$(CC)  -encoding utf8 Main.java	
 clean:
-	$(RM) Main *.exe *.o *.so *.class com/lanhuispace/sims/*.class
+	$(RM) Main *.o *.so *.class com/lanhuispace/sims/*.class
+clear:
+	$(RM) *.exe

@@ -4,6 +4,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,11 +13,13 @@ public class MainMenu extends JMenuBar
 	public MainMenu()
 	{
 		JMenu fileMenu = new JMenu("文件");
-        JMenu editMenu = new JMenu("编辑");
-        JMenu viewMenu = new JMenu("视图");
-        JMenu aboutMenu = new JMenu("关于");
+		JMenu editMenu = new JMenu("编辑");
+		JMenu viewMenu = new JMenu("视图");
+		JMenu aboutMenu = new JMenu("关于");
 		
-		JMenuItem newMenuItem = new JMenuItem("新建");
+		JMenuItem newMenuItem = new JMenuItem("新建");		
+		newMenuItem.setBackground(Color.YELLOW);
+		
 		fileMenu.add(newMenuItem);		
 		
 		newMenuItem.addActionListener(new ActionListener() {
