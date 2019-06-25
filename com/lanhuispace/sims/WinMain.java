@@ -39,7 +39,7 @@ public class WinMain
 		mm.setBorder(new CompoundBorder(border,margin));
 		
 		mJFrame.setJMenuBar(mm);
-		mJFrame.setLayout(new FlowLayout()); 
+		//mJFrame.setLayout(new FlowLayout());
 		mJFrame.getGraphicsConfiguration().getDevice().setFullScreenWindow(mJFrame);//setUndecorated=true	
 		mJFrame.setVisible(true);		
 	}
