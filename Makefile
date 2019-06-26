@@ -8,8 +8,9 @@ RM = rm -rf
 all:
 	$(CC)  -encoding utf8 Main.java
 exe:
-	gcc -mwindows main.c -o sims.exe
+	windres icon.rc -o icon.o
+	gcc -mwindows main.c icon.o -o sims.exe
 clean:
 	$(RM) Main *.o *.so *.class com/lanhuispace/sims/*.class
 clear:
-	$(RM) *.exe
+	$(RM) *.exe *.o

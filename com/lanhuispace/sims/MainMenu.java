@@ -20,17 +20,22 @@ public class MainMenu extends JMenuBar
 		fileMenu.setFont(Font.decode("新宋体"));//微软雅黑 PLAIN/BOLD/ITALIC
 		
 		JMenu editMenu = new JMenu("编辑");
+		editMenu.setFont(Font.decode("新宋体"));
+		
 		JMenu viewMenu = new JMenu("视图");
+		viewMenu.setFont(Font.decode("新宋体"));		
+		
 		JMenu aboutMenu = new JMenu("关于");
+		aboutMenu.setFont(Font.decode("新宋体"));
 		
 		fileMenu.setBorderPainted(false);//边框线		
 		editMenu.setBorderPainted(false);//边框线		
 		viewMenu.setBorderPainted(false);//边框线		
 		aboutMenu.setBorderPainted(false);//边框线		
 		
-		fileMenu.setBackground(Color.WHITE);//背景颜色
-		fileMenu.setForeground(Color.PINK);//文字颜色
-		fileMenu.setOpaque(true);
+		//fileMenu.setBackground(Color.WHITE);//背景颜色
+		//fileMenu.setForeground(Color.PINK);//文字颜色
+		//fileMenu.setOpaque(true);
 		
 		JMenuItem newMenuItem = new JMenuItem("新建");		
 		newMenuItem.setBackground(Color.YELLOW);
@@ -44,7 +49,7 @@ public class MainMenu extends JMenuBar
 			// }
 		// });
 		
-		newMenuItem.addActionListener(new ActionListener() {
+		newMenuItem.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("新建  被点击");
