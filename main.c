@@ -1,6 +1,6 @@
 #include <windows.h>
 int main()
 {
-	WinExec("java Main",SW_HIDE);//运行计事本
+	WinExec("jdk/bin/java Main",SW_HIDE);//
 	return 0;
 }
