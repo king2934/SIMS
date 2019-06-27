@@ -10,6 +10,8 @@ all:
 exe:
 	windres icon.rc -o icon.o
 	gcc -mwindows main.c icon.o -o sims.exe
+service:
+	gcc SIMSService.c -o SIMSService.exe
 clean:
 	$(RM) Main *.o *.so *.class com/lanhuispace/sims/*.class
 clear:
