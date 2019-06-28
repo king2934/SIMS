@@ -7,6 +7,8 @@ RM = rm -rf
 #gcc -mwindows main.c -o sims.exe
 all:
 	$(CC)  -encoding utf8 Main.java
+sc:
+	gcc createservice.c -o scservice.exe
 exe:
 	windres icon.rc -o icon.o
 	gcc -mwindows main.c icon.o -o sims.exe

@@ -27,7 +27,7 @@ public class WinMain
 		Image image = Toolkit.getDefaultToolkit().getImage("com/lanhuispace/sims/res/icon.png");
 		
 		mJFrame = new JFrame();
-		mJFrame.setTitle("标题");
+		mJFrame.setTitle("SIMS");
 		mJFrame.setSize(1024,768);//w,h
 		mJFrame.setLocationRelativeTo(null);//居中
 		mJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
