@@ -2,6 +2,11 @@ db/mariadb/
 lib/
 jdk/
 
+com/lanhuispace/sims/*.class
+*.o
+*.exe
+*.class
+
 # system ignore  
 .DS_Store  
 Thumbs.db
