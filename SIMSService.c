@@ -197,12 +197,12 @@ void WINAPI ControlHandler(DWORD request)
 void WINAPI ServiceMain(DWORD argc, char* argv[])
 {
 	init();
-    ServiceStatus.dwServiceType = SERVICE_WIN32;
+	ServiceStatus.dwServiceType = SERVICE_WIN32;
     ServiceStatus.dwCurrentState = SERVICE_START_PENDING;
     ServiceStatus.dwControlsAccepted = SERVICE_ACCEPT_SHUTDOWN|SERVICE_ACCEPT_STOP;	//接受两种服务控制台请求
-    ServiceStatus.dwWin32ExitCode = 0;
+	ServiceStatus.dwWin32ExitCode = 0;
 	ServiceStatus.dwServiceSpecificExitCode = 0;
-    ServiceStatus.dwCheckPoint = 0;
+	ServiceStatus.dwCheckPoint = 0;
     ServiceStatus.dwWaitHint = 0;
     hStatus = RegisterServiceCtrlHandlerA(TEXT(SERVICE_NAME),ControlHandler);
     if(0==hStatus){
