@@ -12,6 +12,7 @@ SERVICE_STATUS ServiceStatus;
 SERVICE_STATUS_HANDLE hStatus;
 
 int isRuning = 0;
+char RuningPath[1024]={""};
 
 /**
 *** 取得字符串日期时间
@@ -44,52 +45,7 @@ int get_datetime(char * str_datetime)
 	strncat(str_datetime, acHour, 3);
 	strncat(str_datetime, acMin, 3);
 	strncat(str_datetime, acSec, 2);
-
-	return 0;
-}
-
-/**
-*** 日志记录 启动失败
-**/
-int log_start_failed()
-{
-	char * file_name = "logs/error.txt";
-	FILE * fp = fopen(file_name,"a+");
 	
-	char str_datetime[19]={0};
-	get_datetime(str_datetime);
-	
-	char* sm =" 服务初始化失败...";
-	char runing[]={0};
-	
-	strncat(runing,str_datetime,sizeof(str_datetime));
-	strncat(runing,sm,strlen(sm));
-	
-	fputs(runing, fp);
-	fclose(fp);
-	return 0;
-}
-
-/**
-***日志记录 启动初始化成功
-**/
-int log_start_success()
-{
-	"\\logs\\success.log";
-	char RuningPath[256];
-	getcwd(RuningPath,sizeof(RuningPath));
-	//strncat(RuningPath,"\\logs\\success.log ",strlen(RuningPath));
-	
-	char log_path[256];
-	memset(log_path, '\0', sizeof(log_path));
-	
-	printf("路径：%s\n",RuningPath);
-	
-	char* file_name = RuningPath;
-	FILE* fp = NULL; // 文件指针
-	fopen_s(&fp, file_name, "a+");
-	fputs("启动成功\n", fp);
-	fclose(fp);
 	return 0;
 }
 
@@ -107,6 +63,72 @@ int WriteToLog(char* str)
 }
 
 /**
+*** 写日志
+*** logs("\\logs\\logs.log","日志\n");
+**/
+int logs(char* logpath,char* str)
+{
+	char basePath[1024]={""};
+	strcpy(basePath,RuningPath);
+	strcat(basePath,logpath);
+	
+	FILE* fp = fopen(basePath,"a+");
+	fputs(str, fp);
+	fclose(fp);
+	return 0;
+}
+
+/**
+***日志记录 启动初始化成功
+**/
+int log_start_success()
+{
+	char logStr[255]={0};
+	get_datetime(logStr);
+	strcat(logStr," 服务启动成功。\n");
+	
+	logs("\\logs\\success.log",logStr);
+	return 0;
+}
+
+/**
+*** 日志记录 启动失败
+**/
+int log_start_failed()
+{
+	char logStr[255]={0};
+	get_datetime(logStr);
+	strcat(logStr," 失败，服务启动时发生了错误。\n");
+	
+	logs("\\logs\\error.log",logStr);
+	return 0;
+}
+
+/**
+*** 服务程序路径
+**/
+int log_init()
+{
+	logs("\\logs\\logs.log","日志\n");
+	return 0;
+}
+
+/**
+*** 服务主程序运行时 的一些初始化
+**/
+int init()
+{
+	char regname[] = "SYSTEM\\CurrentControlSet\\Services\\SIMSService";
+	HKEY hkResult;
+	int ret = RegOpenKey(HKEY_LOCAL_MACHINE,regname,&hkResult);
+	char szpath[1024];
+	DWORD dwSize = sizeof(szpath);
+	RegQueryValueEx(hkResult,"ImagePath",NULL,NULL,(LPBYTE)szpath,&dwSize);//提取内容	
+	strncpy(RuningPath, szpath, (dwSize-28));
+	return 0;
+}
+
+/**
 *** 主要服务 循环运行
 **/
 int whileRuningService()
@@ -116,7 +138,8 @@ int whileRuningService()
 	{
 		//char str_datetime[19]={0};
 		//get_datetime(str_datetime);
-		printf("现在的时间是... \n");
+		//printf("现在的时间是... \n");
+		//WriteToLog("日志记录\n");
 		Sleep(SLEEP_TIME);
 	}
 	return 0;
@@ -160,7 +183,8 @@ void WINAPI ControlHandler(DWORD request)
 *** RegisterServiceCtrlHandler函数 ：为服务注册控制处理器
 **/
 void WINAPI ServiceMain(DWORD argc, char* argv[])
-{	
+{
+	init();
     ServiceStatus.dwServiceType = SERVICE_WIN32;
     ServiceStatus.dwCurrentState = SERVICE_START_PENDING;
     ServiceStatus.dwControlsAccepted = SERVICE_ACCEPT_SHUTDOWN|SERVICE_ACCEPT_STOP;	//接受两种服务控制台请求
@@ -170,18 +194,17 @@ void WINAPI ServiceMain(DWORD argc, char* argv[])
     ServiceStatus.dwWaitHint = 0;
     hStatus = RegisterServiceCtrlHandlerA(TEXT(SERVICE_NAME),ControlHandler);
     if(0==hStatus){
-		WriteToLog("启动初始化失败\n");//日志记录 启动初始化失败
-		
-    	//注册服务失败 
+		log_start_failed();//日志记录 启动初始化失败		
+    	//注册服务失败
         ServiceStatus.dwCurrentState = SERVICE_STOPPED;
 		ServiceStatus.dwWin32ExitCode= -1;
 		SetServiceStatus(hStatus,&ServiceStatus);
     }else{
 		log_start_success();//日志记录 启动初始化成功
-		
     	ServiceStatus.dwCurrentState = SERVICE_RUNNING;
     	SetServiceStatus(hStatus,&ServiceStatus);
     }
+	
 /*
 	运行到这里，服务注册完毕。这里放要执行的代码 
 */
@@ -198,23 +221,75 @@ whileRuningService();
 }
 
 /**
+*** 服务安装
+**/
+int install()
+{
+	char RunPath[255];
+	getcwd(RunPath,sizeof(RunPath));
+	strcat(RunPath,"\\SIMSService.exe");
+	
+	char cmdStr[1024];
+	strcpy(cmdStr,"sc create SIMSService ");
+	strcat(cmdStr,"displayname= SIMSService depend= Tcpip start= auto ");
+	strcat(cmdStr,"binpath=\"");
+	strcat(cmdStr,RunPath);
+	strcat(cmdStr," --service ");
+	strcat(cmdStr,"\"");
+	
+	char cmdStrb[1024];
+	strcpy(cmdStrb,"sc config SIMSService  binpath=\"");
+	strcat(cmdStrb,RunPath);
+	strcat(cmdStrb," --service ");
+	strcat(cmdStrb,"\"");
+	
+	printf("%s\n",cmdStr);
+	//WinExec("sc create SIMSService binpath=\"E:\\Github\\SIMS\\SIMSService.exe\" displayname= SIMSService depend= Tcpip start= auto ",SW_HIDE);
+	WinExec(cmdStr,SW_HIDE);
+	WinExec(cmdStrb,SW_HIDE);
+	WinExec("sc description SIMSService \"SIMS服务\"",SW_HIDE);
+	system("net start SIMSService");
+}
+
+/**
+*** 服务卸载
+**/
+int uninstall()
+{
+	WinExec("sc delete SIMSService",SW_HIDE);
+}
+
+/**
 *** 入口函数
 ***/
-int main()
+int main(int argc, char *argv[])
 {
-	log_start_success();
 	/*
 	** 初始化一个SERVICE_TABLE_ENTRY 分派表结构体
 	** 然后调用StartServiceCtrlDispatcher()调用进程的主线程转换为控制分派器
 	** 分派器启动一个新线程，该线程运行分派表中对应于你的服务的ServiceMain（）函数
 	** 在这之后系统将自动创建一个线程去执行ServiceMain函数的内容
 	*/
+
 	SERVICE_TABLE_ENTRYA ServiceTable[2];
     ServiceTable[0].lpServiceName = TEXT(SERVICE_NAME);
     ServiceTable[0].lpServiceProc = ServiceMain;
     ServiceTable[1].lpServiceName = 0;
     ServiceTable[1].lpServiceProc = 0;
+	
+	if(argc>1){
+		if(stricmp(argv[1],"--service")==0){
+			StartServiceCtrlDispatcherA(ServiceTable);
+		}else if(stricmp(argv[1],"--install")==0){
+			install();
+		}else if(stricmp(argv[1],"--uninstall")==0){
+			uninstall();
+		}else{
+			printf("参数没有对上，执行默认\n");
+		}
+	}else{
+		printf("没有参数，执行默认\n");
+	}
 
-    StartServiceCtrlDispatcherA(ServiceTable); 
     return 0;//这里返回后，程序不会自动结束 
 }
