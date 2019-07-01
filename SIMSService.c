@@ -79,6 +79,21 @@ int logs(char* logpath,char* str)
 }
 
 /**
+*** 写运行日志
+**/
+int log_w(char* str)
+{
+	char logStr[255]={0};
+	get_datetime(logStr);
+	strcat(logStr," ");
+	strcat(logStr,str);
+	strcat(logStr,"\n");
+	
+	logs("\\logs\\logs.log",logStr);
+	return 0;
+}
+
+/**
 ***日志记录 启动初始化成功
 **/
 int log_start_success()
@@ -136,10 +151,7 @@ int whileRuningService()
 	isRuning = 1;
 	while(isRuning==1)
 	{
-		//char str_datetime[19]={0};
-		//get_datetime(str_datetime);
-		//printf("现在的时间是... \n");
-		//WriteToLog("日志记录\n");
+		//log_w("循环运行中...");
 		Sleep(SLEEP_TIME);
 	}
 	return 0;
