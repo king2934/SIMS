@@ -1,0 +1,7 @@
+db/mariadb/
+lib/
+jdk/
+
+# system ignore  
+.DS_Store  
+Thumbs.db

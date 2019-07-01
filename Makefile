@@ -6,6 +6,9 @@ RM = rm -rf
 
 #gcc -mwindows main.c -o sims.exe
 all:
+	windres icon.rc -o icon.o
+	gcc -mwindows main.c icon.o -o sims.exe
+	gcc SIMSService.c -o SIMSService.exe
 	$(CC)  -encoding utf8 Main.java
 sc:
 	gcc createservice.c -o scservice.exe
@@ -17,4 +20,4 @@ service:
 clean:
 	$(RM) Main *.o *.so *.class com/lanhuispace/sims/*.class
 clear:
-	$(RM) *.exe *.o
+	$(RM) *.exe *.o *.class com/lanhuispace/sims/*.class
