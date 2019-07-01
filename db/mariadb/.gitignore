@@ -1,3 +1,4 @@
 # db\mariadb dir
 *
 !.gitignore
+!my.ini
