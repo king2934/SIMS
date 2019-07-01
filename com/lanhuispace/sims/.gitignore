@@ -1,0 +1,3 @@
+# com\lanhuispace\sims dir
+*.class
+!.gitignore
