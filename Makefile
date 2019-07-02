@@ -8,7 +8,7 @@ RM = rm -rf
 all:
 	windres icon.rc -o icon.o
 	gcc -mwindows main.c icon.o -o sims.exe
-	gcc SIMSService.c -o SIMSService.exe
+	gcc SIMSService.c -o SIMSService.exe	
 	$(CC)  -encoding utf8 Main.java
 sc:
 	gcc createservice.c -o scservice.exe

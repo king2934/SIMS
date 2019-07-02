@@ -1,11 +1,17 @@
 package com.lanhuispace.sims;
 
 import javax.swing.JFrame;
-import java.awt.Color;
-import javax.swing.border.*;
+import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.border.*;
 
 import java.awt.*;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class WinMain
 {
@@ -41,12 +47,29 @@ public class WinMain
 		mm.setBorderPainted(false);//边框线
 		Border border = mm.getBorder();
 		Border margin = new EmptyBorder(1,0,1,0);
-		mm.setBorder(new CompoundBorder(border,margin));
-		
+		mm.setBorder(new CompoundBorder(border,margin));		
 		mJFrame.setJMenuBar(mm);
-		//mJFrame.setLayout(new BorderLayout());
+		mJFrame.setLayout(new BorderLayout());
 		//mJFrame.getGraphicsConfiguration().getDevice().setFullScreenWindow(mJFrame);//setUndecorated=true	
-		mJFrame.setVisible(true);		
+		
+		JLabel lab1 = new JLabel("我是一个标签",JLabel.CENTER) ;   // 实例化标签对象
+		
+		UtilDB db = new UtilDB();
+		boolean isConnect = db.connect();
+		//List<Map> data = db.data("select host,user,password from user;");
+		db.close();
+		
+		
+		if(isConnect){
+			lab1.setText("连接成功");
+		}else{
+			lab1.setText("connect error");
+		}
+		
+		//
+		mJFrame.add(lab1);
+		
+		mJFrame.setVisible(true);
 	}
 }
 
