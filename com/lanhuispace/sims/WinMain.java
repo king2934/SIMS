@@ -30,7 +30,7 @@ public class WinMain
 	 */
 	private void initialize()
 	{
-		Image image = Toolkit.getDefaultToolkit().getImage("com/lanhuispace/sims/res/icon.png");
+		Image image = Toolkit.getDefaultToolkit().getImage("images/icon.png");
 		
 		mJFrame = new JFrame();
 		mJFrame.setTitle("SIMS");
