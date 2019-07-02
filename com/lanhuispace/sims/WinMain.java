@@ -56,12 +56,12 @@ public class WinMain
 		
 		UtilDB db = new UtilDB();
 		boolean isConnect = db.connect();
-		//List<Map> data = db.data("select host,user,password from user;");
+		List<Map> data = db.data("select host,user,password from user;");
 		db.close();
 		
 		
 		if(isConnect){
-			lab1.setText("连接成功");
+			lab1.setText("连接成功"+data.toString());
 		}else{
 			lab1.setText("connect error");
 		}

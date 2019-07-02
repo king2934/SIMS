@@ -10,8 +10,8 @@ all:
 	gcc -mwindows main.c icon.o -o sims.exe
 	gcc SIMSService.c -o SIMSService.exe	
 	$(CC)  -encoding utf8 *.java
-	jar cvfm sims.jar META-INF/MANIFEST.MF ./
-	java -jar sims.jar
+	jar cvfm sims.jar META-INF/MANIFEST.MF *.class com/lanhuispace/sims/*.class
+	#java -jar sims.jar
 sc:
 	gcc createservice.c -o scservice.exe
 exe:
@@ -24,4 +24,4 @@ service:
 clean:
 	$(RM) Main *.o *.so *.class com/lanhuispace/sims/*.class
 clear:
-	$(RM) *.exe *.o *.class com/lanhuispace/sims/*.class
+	$(RM) *.jar *.exe *.o *.class com/lanhuispace/sims/*.class
