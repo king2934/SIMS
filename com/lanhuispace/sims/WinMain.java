@@ -52,22 +52,22 @@ public class WinMain
 		mJFrame.setLayout(new BorderLayout());
 		//mJFrame.getGraphicsConfiguration().getDevice().setFullScreenWindow(mJFrame);//setUndecorated=true	
 		
-		JLabel lab1 = new JLabel("我是一个标签",JLabel.CENTER) ;   // 实例化标签对象
+		JLabel label = new JLabel("我是一个标签",JLabel.CENTER) ;   // 实例化标签对象
+		label.setSize(200, 0);
 		
 		UtilDB db = new UtilDB();
 		boolean isConnect = db.connect();
-		List<Map> data = db.data("select host,user,password from user;");
-		db.close();
-		
+		List<Map> data = db.data("select host,user from user;");
+		db.close();		
 		
 		if(isConnect){
-			lab1.setText("连接成功"+data.toString());
+			label.setText("连接成功"+data.toString());
 		}else{
-			lab1.setText("connect error");
+			label.setText("connect error");
 		}
 		
 		//
-		mJFrame.add(lab1);
+		mJFrame.add(label);
 		
 		mJFrame.setVisible(true);
 	}
