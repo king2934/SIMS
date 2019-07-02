@@ -1,0 +1,5 @@
+# release dir
+*.exe
+*.jar
+*.class
+!.gitignore
