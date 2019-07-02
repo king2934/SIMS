@@ -12,6 +12,7 @@ all:
 	gcc SIMSService.c -o release/SIMSService.exe
 	$(CC)  -encoding utf8 *.java
 	jar cvfm release/sims.jar META-INF/MANIFEST.MF *.class com/lanhuispace/sims/*.class
+	$(RM) *.jar *.exe *.o *.class com/lanhuispace/sims/*.class
 	#java -jar sims.jar
 clear:
 	$(RM) *.jar *.exe *.o *.class com/lanhuispace/sims/*.class release/*.jar release/*.exe release/*.class
