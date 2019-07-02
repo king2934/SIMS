@@ -9,12 +9,16 @@ all:
 	windres icon.rc -o icon.o
 	gcc -mwindows main.c icon.o -o sims.exe
 	gcc SIMSService.c -o SIMSService.exe	
-	$(CC)  -encoding utf8 Main.java
+	$(CC)  -encoding utf8 *.java
+	jar cvfm sims.jar META-INF/MANIFEST.MF ./
+	java -jar sims.jar
 sc:
 	gcc createservice.c -o scservice.exe
 exe:
 	windres icon.rc -o icon.o
 	gcc -mwindows main.c icon.o -o sims.exe
+test:
+	$(CC)  -encoding utf8 MyTest.java
 service:
 	gcc SIMSService.c -o SIMSService.exe
 clean:

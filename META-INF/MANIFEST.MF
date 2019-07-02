@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Created-By: 11.0.1 (Oracle Corporation)
+Main-Class: Main
+Class-Path: .;jdk/lib; lib/mariadb-java-client-2.3.0.jar
+Import-Package: javax.naming,org.mariadb.jdbc
+
