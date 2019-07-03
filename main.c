@@ -13,6 +13,7 @@ int install()
 	char basePath[256];
 	char simsPath[256];
 	char db_Path[256];
+	char db_conf[256];
 	
 	getcwd(basePath,sizeof(basePath));
 	
@@ -21,6 +22,9 @@ int install()
 	
 	strcpy(db_Path,basePath);
 	strcat(db_Path,"\\db\\mariadb\\bin\\mysqld.exe ");
+	
+	strcpy(db_conf,basePath);
+	strcat(db_conf,"\\db\\mariadb\\my.ini ");
 	
 	
 	/**
@@ -46,11 +50,15 @@ int install()
 	strcpy(sc_db,"sc create SIMSDB displayname= SIMSDB depend= Tcpip start= auto ");
 	strcat(sc_db,"binpath=\"");
 	strcat(sc_db,db_Path);
+	strcat(sc_db," --defaults-file=");
+	strcat(sc_db,db_conf);
 	strcat(sc_db," SIMSDB ");
 	strcat(sc_db,"\"");
 	
 	strcpy(sc_db_config,"sc config SIMSDB  binpath=\"");
 	strcat(sc_db_config,db_Path);
+	strcat(sc_db_config," --defaults-file=");
+	strcat(sc_db_config,db_conf);
 	strcat(sc_db_config," SIMSDB ");
 	strcat(sc_db_config,"\"");
 	
