@@ -69,8 +69,8 @@ int install()
 	WinExec("sc description SIMSDB \"SIMSDB数据\"",SW_HIDE);
 	WinExec("sc description SIMSService \"SIMS服务\"",SW_HIDE);
 	
-	WinExec("net start SIMSService",SW_HIDE);
 	WinExec("net start SIMSDB",SW_HIDE);
+	WinExec("net start SIMSService",SW_HIDE);
 }
 
 /**
