@@ -61,6 +61,8 @@ public class MainWindow extends JFrame
 		this.setBackground(Color.white);
 		this.getContentPane().setBackground(new Color(200,200,200,1));
 		
+		//this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));//边框
+		
 		/**
 		*** 容器中添加组件
 		**/
