@@ -56,12 +56,12 @@ public class MainWindow extends JFrame
 		this.setLocationRelativeTo(null);//居中
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setIconImage(this.imageIcon);
-		this.setUndecorated(false);//默认的边框
+		this.setUndecorated(true);//默认的边框
 		this.setLayout(new BorderLayout());//边界布局 东西南北中（上左中右下）
 		this.setBackground(Color.white);
 		this.getContentPane().setBackground(new Color(200,200,200,1));
 		
-		//this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));//边框
+		this.getRootPane().setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));//边框
 		
 		/**
 		*** 容器中添加组件
