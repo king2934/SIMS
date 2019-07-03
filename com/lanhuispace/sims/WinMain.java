@@ -39,9 +39,12 @@ public class WinMain
 		mJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mJFrame.setIconImage(image);
 		mJFrame.setUndecorated(false);//默认的边框
-		//mJFrame.setBackground(Color.white);
+		mJFrame.setBackground(Color.white);
 		mJFrame.getContentPane().setBackground(new Color(200,200,200,1));
 		
+		/**
+		*** 菜单栏
+		***/
 		MainMenu mm = new MainMenu();
 		mm.getComponent().setBackground(Color.white);//背景色
 		mm.setBorderPainted(false);//边框线
@@ -50,7 +53,7 @@ public class WinMain
 		mm.setBorder(new CompoundBorder(border,margin));		
 		mJFrame.setJMenuBar(mm);
 		mJFrame.setLayout(new BorderLayout());
-		//mJFrame.getGraphicsConfiguration().getDevice().setFullScreenWindow(mJFrame);//setUndecorated=true	
+		//mJFrame.getGraphicsConfiguration().getDevice().setFullScreenWindow(mJFrame);//setUndecorated=true	全屏
 		
 		JLabel label = new JLabel("我是一个标签",JLabel.CENTER) ;   // 实例化标签对象
 		label.setSize(200, 0);
@@ -65,9 +68,13 @@ public class WinMain
 		}else{
 			label.setText("connect error");
 		}
-		
-		//
 		mJFrame.add(label);
+		
+		//RedrawWindowEvent rwe = new RedrawWindowEvent(mJFrame);//窗口重绘 大小resize
+		
+		/**添加两个监听器**/
+		//mJFrame.addMouseListener(rwe);
+		//mJFrame.addMouseMotionListener(rwe);
 		
 		mJFrame.setVisible(true);
 	}

@@ -6,8 +6,8 @@ public class RunProgram implements Runnable
 	public synchronized void run()
 	{
 		try {
-			WinMain window = new WinMain();
-			window.mJFrame.setVisible(true);
+			MainWindow window = new MainWindow();
+			//window.mJFrame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
