@@ -1,8 +1,7 @@
-#
+# SIMS dir
 *.o
 *.exe
 *.class
-
-# system ignore  
 .DS_Store  
 Thumbs.db
+!.gitignore

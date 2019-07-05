@@ -1,4 +1,4 @@
-# db\mariadb dir
+# release dir
 *
 !.gitignore
 !my.ini
