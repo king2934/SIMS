@@ -9,7 +9,8 @@ RM = rm -rf
 all:
 	windres icon.rc -o icon.o
 	gcc -mwindows main.c icon.o -o release/sims.exe
-	gcc SIMSService.c -o release/SIMSService.exe
+	gcc -Wall -shared logw.c -o logw.dll
+	gcc -Iinclude -Llib SIMSService.c -o release/SIMSService.exe -llibmariadb
 	$(CC)  -encoding utf8 *.java
 	jar cvfm release/sims.jar META-INF/MANIFEST.MF *.class com/lanhuispace/sims/*.class
 	$(RM) *.jar *.exe *.o *.class com/lanhuispace/sims/*.class

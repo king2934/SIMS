@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #define SERVICE_NAME "SIMSService"
 #define SLEEP_TIME 500
@@ -93,6 +94,26 @@ int log_w(char* str)
 	return 0;
 }
 
+int log_wi(char* str,int tf)
+{
+	char logStr[255]={0};
+	get_datetime(logStr);
+	strcat(logStr," ");
+	strcat(logStr,str);
+	strcat(logStr,"\n");
+	
+	char logpath[255];
+	strcpy(logpath,"\\logs");
+	if(tf==1){
+		strcat(logpath,"\\success.log");
+	}else{
+		strcat(logpath,"\\error.log");
+	}
+	logs(logpath,logStr);
+	return 0;
+}
+
+
 /**
 ***日志记录 启动初始化成功
 **/
@@ -140,6 +161,20 @@ int init()
 	DWORD dwSize = sizeof(szpath);
 	RegQueryValueEx(hkResult,"ImagePath",NULL,NULL,(LPBYTE)szpath,&dwSize);//提取内容	
 	strncpy(RuningPath, szpath, (dwSize-28));
+	return 0;
+}
+
+/**
+*** 初始化数据库
+**/
+int init_mariadb()
+{
+	int o = re_mariadb();
+	if(o==-1){
+		logs("\\logs\\error.log","re_mariadb failed\n");
+	}else{
+		logs("\\logs\\success.log","re_mariadb success\n");
+	}
 	return 0;
 }
 
